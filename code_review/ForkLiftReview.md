@@ -27,6 +27,7 @@ data_header = []
                 dataset_list = []
 ```
 > ## review 받은 수정 코드
+> 
 ```python
 command_data = []
     with open (filename, "r") as csvfile:
@@ -42,6 +43,8 @@ command_data = []
         dataset[fork_id].append([emp_x, emp_y, in_dt])
 ```
 **수정사항**
++ 변수명 신경쓰기
+
 + 파일의 데이터를 불러올때 인덱스 보다는 파일 시트 이름으로 불러와서 **데이터 언패킹** 사용
   <ul> 데이터 언패킹(unpacking) : 시퀀스를 개별 아이템으로 나누기
 ```python
@@ -74,8 +77,10 @@ command_data = []
     print(tail) #-> 'last'
     # 평균 구할때도 사용 가능
 ```
-  
   </ul>
+
+
+  
 
 
 > ## defaultdict 사용
@@ -113,3 +118,34 @@ sorted_dataset = {}
 <li>i 는 인덱스의 줄임말로 다음과 같은 key값들을 불러오는 경우에는 key라고 명확한 네이밍을 하는 것이 보기 좋다.
 <li>똑같은 것을 변수로 중복 할당 해주고 있는데 이는 메모리 사용 공간을 더 잡아먹으므로 지우는 것이 좋다.
 </ul>
+
+> ## 원래 코드
+```python
+a = sorted_dataset #모르는 변수 지정 지향
+keys_list = list(sorted_dataset.keys()) # list 제외 가능 ((iterator))
+linkedlist_bag_dict = {}
+
+    
+for i in keys_list: # TEAM..., 
+    linkedlist_bag_dict[i] = LinkedListBag()
+    for j in a[i] : # ['172978.787361283','252229.400114715','2019-06-01 08:30:48.797'] ['172978.787361283','252229.400114715','2019-06-01 08:30:48.797']
+        linkedlist_bag_dict[i].append(ForkliftNode(i, float(j[0]), float(j[1]), datetime.strptime(j[2], "%Y-%m-%d %H:%M:%S.%f")))
+
+  
+    return linkedlist_bag_dict
+```
+> ## 수정 코드
+ ```python
+linkedlist_bag_dict = {}
+for fork_id in sorted_dataset.keys(): # TEAM..., 
+    linkedlist_bag_dict[fork_id] = LinkedListBag()
+    for emp_x, emp_y, in_dt in sorted_dataset[fork_id] : 
+        emp_x  = float(emp_x)
+        emp_y  = float(emp_y)
+        in_dt  = datetime.strptime(in_dt, "%Y-%m-%d %H:%M:%S.%f")
+        linkedlist_bag_dict[fork_id].append(ForkliftNode(fork_id, emp_x, emp_y, in_dt))
+```
++ 수정 사항
+  <ul> 모르는 변수 지정 지향 </ul>
+  <ul> list 제외 가능하다 (iterator 개념 공부) </ul>
+  <ul> 앞 코드와 마찬가지로 데이터 언패킹사용으로 복잡하지 않게 ! </ul>
