@@ -146,6 +146,6 @@ for fork_id in sorted_dataset.keys(): # TEAM...,
         linkedlist_bag_dict[fork_id].append(ForkliftNode(fork_id, emp_x, emp_y, in_dt))
 ```
 + 수정 사항
-  <ul> 모르는 변수 지정 지향 </ul>
+  <ul> 모르는 변수 지정 지양 </ul>
   <ul> list 제외 가능하다 (iterator 개념 공부) </ul>
   <ul> 앞 코드와 마찬가지로 데이터 언패킹사용으로 복잡하지 않게 ! </ul>
