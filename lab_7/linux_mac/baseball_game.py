@@ -319,6 +319,8 @@ def main():
     # 위의 코드를 포함하여 자유로운 수정이 가능함
     def start(user_input):
         user_input = str(input('Input guess number : '))
+        if user_input == '0':
+            exit()
         while is_validated_number(user_input) == False:
             user_input = str(input('Wrong Input, Input again : '))
             if is_validated_number(user_input) == True:
@@ -333,8 +335,11 @@ def main():
                 break
         
         one_more = input('You win, one more(Y/N) ?')
+        
         if is_yes(one_more) == True:
             main()
+        elif one_more == '0':
+            exit()
         elif is_no(one_more) == True:
             print("Thank you for using this program")
             print("End of the Game")
@@ -344,6 +349,8 @@ def main():
                 one_more = input('Wrong Input, Input again : ')
                 if is_yes(one_more) == True:
                     main()
+                elif one_more == '0':
+                    exit()
                 elif is_no(one_more) == True:
                     break
     start(user_input)
