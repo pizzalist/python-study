@@ -35,13 +35,14 @@ def is_digit(user_input_number):
     
     try:
         int(user_input_number)
-        result = True
+        result = True 
     except ValueError:
         result = False
 
     # ==================================
     return result
 
+# "123".isdigit()
 
     
 
@@ -73,7 +74,7 @@ def is_between_100_and_999(user_input_number):
         result = False
     # ==================================
     return result
-
+# change_to_int 함수 이름 같다.
 
 
 def is_duplicated_number(three_digit):
@@ -99,7 +100,7 @@ def is_duplicated_number(three_digit):
     # ===Modify codes below=============
     # 조건에 따라 변환되어야 할 결과를 result 변수에 할당
     # Hint - Len과 Set을 써서 할 수 있음, 중복되는 값의 str 길이는 1 또는 2
-    num_list = list(three_digit)
+    num_list = list(three_digit)    #list는 iteror한 객체라서 없어도 된다.
     num_set = set(num_list)
     if len(num_set) == 3: 
         result = False
@@ -141,7 +142,8 @@ def is_validated_number(user_input_number):
         result = False
     # ==================================
     return result
-
+# 일관성 있게 쓰자.
+#논리 연산자 순서 공부
 
 
 def get_not_duplicated_three_digit_number():
@@ -166,8 +168,9 @@ def get_not_duplicated_three_digit_number():
     # 조건에 따라 변환되어야 할 결과를 result 변수에 할당
     # get_random_number() 함수를 사용하여 random number 생성
     random_num = str(get_random_number())
-    while is_duplicated_number(random_num) == True:
+    while is_duplicated_number(random_num) == True: #TRUE 도 지워도됨
         random_num = str(get_random_number())
+        # 밑에 두줄 없어도 됨
         if is_duplicated_number(random_num) == False:
             break
     result = random_num
@@ -210,14 +213,14 @@ def get_strikes_or_ball(user_input_number, random_number):
     random_list = list(random_number)   
     #리스트 비교하여 숫자와 위치가 같은 것을 strike_num 리스트에 담는다
     strike_num = []
-    for input_num, random_num in zip(input_list,random_list):
+    for input_num, random_num in zip(input_list, random_list):
         if input_num == random_num:
             strike_num.append(input_num)
     #기존 리스트들에서 strike된 숫자는 remove
     # input_list.remove(input_num)
     for i in strike_num:
         input_list.remove(i)
-    for i in strike_num:
+    for i in strike_num: #지워도 됨
         random_list.remove(i)
 
 
@@ -227,6 +230,8 @@ def get_strikes_or_ball(user_input_number, random_number):
         for j in random_list:
             if i == j:
                 ball_num.append(i)
+
+
 
 
     #갯수 리스트로 만든다.
