@@ -4,16 +4,12 @@
 # k번째로 공을 던지는 사람의 번호는 무엇인지 return 하도록 solution 함수를 완성해보세요.
 
 def solution(numbers, k):
-    while 2*k-1 < len(numbers):
-    
-    
-    # if (2*k-2)< len(numbers):
-    #     answer = numbers[2*k-2]
-    # else:
-    #     answer = numbers[abs((2*k-2)-len(numbers))]
-    return answer
+    count = 2*k-2
+    while count > len(numbers):
+        count = count - len(numbers)
+    return numbers[count]
 
 numbers = [1,2,3,4,5]
-k = 90
+k = 3
 
 solution(numbers,k)
