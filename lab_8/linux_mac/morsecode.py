@@ -85,7 +85,7 @@ def is_validated_english_sentence(user_input):
     # ===Modify codes below=============
     # 조건에 따라 변환되어야 할 결과를 result 변수에 할당 또는 필요에 따라 자유로운 수정
     
-    
+    #정수 표현식 사용해보자
     a =user_input.split()
     count = 0
     for i in a:
