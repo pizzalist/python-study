@@ -30,6 +30,8 @@ user_input_number = int(user_input_number)
     return user_input_number >= 100 and user_input_number < 1000
 ```
 위와 같이 True, False 값 if문으로 안해줘도 값 나온다!
+
+---
 > ## 원래 코드
 ```python
 num_list = list(three_digit)    #list는 iteror한 객체라서 없어도 된다.
@@ -43,6 +45,8 @@ else:
 return result
 ```
 
++ list는 iteror한 객체라서 없어도 된다.
+---
 > ## 원래 코드
 ```python
 if is_digit(user_input_number) and \  # ==True 빠짐
@@ -71,7 +75,7 @@ return True
 + 논리 연산자 순서에 대해 공부하자
   
 
-
+---
 >## 원래 코드
 ```python
 random_num = str(get_random_number())
@@ -85,6 +89,7 @@ random_num = str(get_random_number())
     # ==================================
     return result
 ```
+---
 >## 원래 코드
 ```python
 input_list = list(user_input_number)
@@ -109,27 +114,8 @@ result = [len(strike_num),len(ball_num)]
 # ==================================
 return result
 ```
->## 수정 코드 1
-```python
-input_list = list(user_input_number)
-random_list = list(random_number)   
-strike_num = []
-for input_num, random_num in zip(input_list, random_list):
-    if input_num == random_num:
-        strike_num.append(input_num)
-for i in strike_num:
-    input_list.remove(i)
-for i in strike_num: #지워도 됨
-    random_list.remove(i)
 
-# 1) in 조건을 쓴다
-ball_num = []
-for i in input_list: 
-    if i in random_list:
-        ball_num.append(i)
-```
-in 조건을 사용한다
->## 수정 코드 2
+>## 다른 방법 1
 ```python
 input_list = list(user_input_number)
 random_list = list(random_number)   
@@ -147,11 +133,24 @@ balls = set(input_list) & set(random_list)
 len(balls)
 ```
 set 을 이용한다.
-### | => or = 합집합
-### & => and
-### - => 차집합
-### + => 합집합
->## 다른 방법
+  + set은 고유한 값을 가진다. (값 중복 불가능)
+  
+    ### | => or union 합집합
+    ### & or difference => and
+    ### - => 차집합
+    ### + => 합집합
+
+>## 다른 방법 2
+```python
+strikes = sum([n1 == n2 for n1, n2 in zip(user_input_number, random_number)])
+balls = len(set(user_input_number) & set(random_number))
+
+return [strikes, balls - strikes]
+```
++ 반복문을 활용하여 스트라이크의 숫자들의 갯수를 모두 더한 스트라이크를 구해준다.
++ 그리고 교집합의 개념을 이용하여 그 갯수를 볼로 구한다.
++ 볼에서 자리가 같은 스트라이크의 갯수를 빼준다.
+>## 다른 방법 3
 ```python
 strike_num = 0
 ball_num = 0
@@ -165,3 +164,49 @@ for input_num, random_num in zip(user_input_number, random_number):
 
 result = [strike_num, ball_num]
 ```
+
+---
+>## 원래 코드
+```python 
+def main():
+    print("Play Baseball")
+    user_input = 999
+    while True:
+        random_number = str(get_not_duplicated_three_digit_number())
+        print('Random Number is : ', random_number)
+        user_input = str(input('Input guess number : '))
+        strike, balls = get_strikes_or_ball(user_input, random_number)
+        # ===Modify codes below=============
+        # 위의 코드를 포함하여 자유로운 수정이 가능함
+        
+        while strike !=3:
+            if is_validated_number(user_input) == True:
+                print("Strikes :",strike,",","Balls :", balls)
+                user_input = str(input('Input guess number : '))
+                strike, balls = get_strikes_or_ball(user_input, random_number)
+            elif user_input == '0':
+                break
+
+            elif is_validated_number(user_input) == False:
+                print('Wrong Input, Input again')
+                user_input = str(input('Input guess number : '))
+                strike, balls = get_strikes_or_ball(user_input, random_number)
+        if user_input == '0':
+            break
+        else:
+            print("Strikes :",strike,",","Balls :", balls)
+
+        one_more = input('You win, one more(Y/N) ?')
+        while is_yes(one_more) == False and is_no(one_more) == False :
+            # and one_more !='0':
+            print('Wrong Input, Input again')
+            one_more = input('You win, one more(Y/N)?')
+        if is_no(one_more) == True:
+            break   
+        
+        # 생략 가능
+        # elif is_yes(one_more) == True:
+        #     pass
+
+```
+

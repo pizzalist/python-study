@@ -231,19 +231,19 @@ def get_strikes_or_ball(user_input_number, random_number):
     
     #기존 리스트들에서 strike된 숫자는 remove
     # input_list.remove(input_num)
-    for i in strike_num:
-        input_list.remove(i)
-        random_list.remove(i)
+    # for i in strike_num:
+    #     input_list.remove(i)
+    #     random_list.remove(i)
     
-    # 1) in 조건을 쓴다
-    ball_num = []
-    for i in input_list: 
-        if i in random_list:
-            ball_num.append(i)
+    # # 1) in 조건을 쓴다
+    # ball_num = []
+    # for i in input_list: 
+    #     if i in random_list:
+    #         ball_num.append(i)
 
-    # 2) set 을 사용한다
-    balls = set(input_list) & set(random_list)
-    len(balls)
+    # # 2) set 을 사용한다
+    # balls = set(input_list) & set(random_list)
+    # len(balls)
 
     # | => or = 합집합
     # & => and
@@ -252,17 +252,17 @@ def get_strikes_or_ball(user_input_number, random_number):
     
 
 
-    #갯수 리스트로 만든다.
-    result = [len(strike_num),len(ball_num)]
+    # #갯수 리스트로 만든다.
+    # result = [len(strike_num),len(ball_num)]
 
-    ## NEW !! 
-    user_input_number = [2, 3, 5] 
-    random_number = [5, 2, 3]
+    # ## NEW !! 
+    # user_input_number = [2, 3, 5] 
+    # random_number = [5, 2, 3]
 
-    strikes = sum([n1 == n2 for n1, n2 in zip(user_input_number, random_number)])
-    balls = len(set(user_input_number) & set(random_number))
+    # strikes = sum([n1 == n2 for n1, n2 in zip(user_input_number, random_number)])
+    # balls = len(set(user_input_number) & set(random_number))
 
-    return [strikes, balls - strikes]
+    # return [strikes, balls - strikes]
 
 
     # ==================================
@@ -351,44 +351,36 @@ def is_no(one_more_input):
 def main():
     print("Play Baseball")
     user_input = 999
-    random_number = str(get_not_duplicated_three_digit_number())
-    print("Random Number is : ", random_number)
-    # ===Modify codes below=============
-    # 위의 코드를 포함하여 자유로운 수정이 가능함
-    def start(user_input, random_number):
-
-        # 1. 조건을 충족할때까지 사용자에게 user_input 값 받아오기
-        user_input = str(input('Input guess number : '))
-        if user_input == '0':
-            return 
-
-        while is_validated_number(user_input) == False:
-            print('Wrong Input, Input again : ')
-            
-        strike, balls = get_strikes_or_ball(user_input, random_number)
-        while True:
-            print("Strike :", strike, "Balls :", balls)
-            # strike != 3 일때 사용자게에 값 받기
-            if strike != 3: 
-                start(user_input, random_number)
-            if strike == 3:
-                break
+    one_more = 1
+    while (user_input != '0') and (one_more != '0'):
+        random_number = str(get_not_duplicated_three_digit_number())
+        print('Random Number is : ', random_number)
         
-        # 2. is_yes, is_no | '0' 조건 어떻게 다르게 줄지 ? 재귀함수는 사용하지 않습니다.
-        # while 조건 사용하기 => 조건을 사용하면 while 문을 쉽게 깰 수 있습니다!
-        while True:
-            one_more = input('You win, one more(Y/N) ?')
-            if is_yes(one_more) == True:
+        strike = 0
+        while strike != 3:
+            user_input = str(input('Input guess number : '))
+            if is_validated_number(user_input):
+                strike, balls = get_strikes_or_ball(user_input, random_number)
+                print("Strikes :", strike, ","," Balls :", balls)
+            elif user_input == '0':
                 break
-            elif one_more == '0':
-                break
-            elif is_no(one_more) == True:
-                break
-            else:
+            elif is_validated_number(user_input) == False:
                 print('Wrong Input, Input again')
+            
+        if user_input == '0':
+            break
+        
+        one_more = input('You win, one more(Y/N) ?')
+        while is_yes(one_more) == False and is_no(one_more) == False:
+            if one_more == '0':
+                user_input = '0'
+                break
+            print('Wrong Input, Input again')
+            one_more = input('You win, one more(Y/N)?')
+        if is_no(one_more):
+            break   
 
 
-    start(user_input, random_number)
     # ==================================
     print("Thank you for using this program")
     print("End of the Game")
