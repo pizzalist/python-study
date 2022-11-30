@@ -28,7 +28,7 @@ def main():
 def getPlayerMove(towers):
     """플레이어에게 이동 명령을 요청한다. (formTower, toTower)를 반환한다."""
     while True:
-        print('탑의 "시작"과 "끝"의 글자 또는 QUITf를 입력하십시오.')
+        print('탑의 "시작"과 "끝"의 글자 또는 QUIT를 입력하십시오.')
         print("(예: 탑 A에서 탑 B로 원판을 이동하려면 AB를 입력합니다.)")
         print()
         response = input("> ").upper().strip()
@@ -63,7 +63,7 @@ def displayTowers(towers):
                 displayDisk(0)
             else:
                 displayDisk(tower[level])
-        print()
+        print() #개행
         
     emptySpace = " " * (TOTAL_DISKS)
     print("{0} A{0}{0} B{0}{0} C\n".format(emptySpace))
